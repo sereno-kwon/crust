@@ -2,11 +2,13 @@
 """index.src.html → index.html
 
 지오메트리 표 자리({{GEO_*}})를 아래 GEO 데이터로 채웁니다.
-  python3 build.py            index.html 생성
-  python3 build.py --preview  preview.html 생성 (이미지를 크러스트 CDN 원본 주소로 연결, 이미지 받기 전 확인용)
+  python3 build.py            index.html, en/index.html, ja/index.html 생성
+  python3 build.py --preview  preview*.html 생성 (이미지를 크러스트 CDN 원본 주소로 연결)
+번역: i18n/en.json, i18n/ja.json 의 strings는 "한국어 원문": "번역" 쌍입니다.
+한국어 원문을 고치면 같은 키를 두 파일에서도 함께 고쳐야 합니다. 빌드 때 번역이 빠진 한국어가 있으면 목록을 출력합니다.
 수치 출처: crustbikes.com 각 제품 페이지 지오메트리 차트 (단위 mm, 각도 °)
 """
-import re, sys, html
+import re, sys, html, json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -95,32 +97,96 @@ def table(g):
     return f'<table class="geo"><thead><tr><th></th>{head}</tr></thead><tbody>{body}</tbody></table>'
 
 
-def main():
+GEO_LABELS = {
+    "en": {"스택": "Stack", "리치": "Reach", "탑튜브 길이 (가상)": "Top tube (effective)", "탑튜브 길이 (C-C)": "Top tube (C-C)",
+           "탑튜브 슬로프 (°)": "Top tube slope (°)", "싯튜브 길이 (C-T)": "Seat tube (C-T)", "싯튜브 길이 (C-C)": "Seat tube (C-C)",
+           "헤드 앵글": "Head angle", "싯튜브 앵글": "Seat angle", "헤드튜브 길이": "Head tube", "체인스테이 길이": "Chainstay",
+           "BB 높이": "BB height", "BB 드롭": "BB drop", "스탠드오버": "Standover", "포크 레이크": "Fork rake", "트레일": "Trail",
+           "휠베이스": "Wheelbase", "프론트 센터": "Front center"},
+    "ja": {"스택": "スタック", "리치": "リーチ", "탑튜브 길이 (가상)": "トップチューブ長（水平換算）", "탑튜브 길이 (C-C)": "トップチューブ長（C-C）",
+           "탑튜브 슬로프 (°)": "トップチューブ傾斜（°）", "싯튜브 길이 (C-T)": "シートチューブ長（C-T）", "싯튜브 길이 (C-C)": "シートチューブ長（C-C）",
+           "헤드 앵글": "ヘッド角", "싯튜브 앵글": "シート角", "헤드튜브 길이": "ヘッドチューブ長", "체인스테이 길이": "チェーンステー長",
+           "BB 높이": "BBハイト", "BB 드롭": "BBドロップ", "스탠드오버": "スタンドオーバー", "포크 레이크": "フォークオフセット", "트레일": "トレイル",
+           "휠베이스": "ホイールベース", "프론트 센터": "フロントセンター"},
+}
+
+SITE = "https://crustbikes.co.kr/"
+LANGS = [("ko", "KO", ""), ("en", "EN", "en/"), ("ja", "JA", "ja/")]
+HANGUL = re.compile("[가-힣]")
+
+
+def lang_switch(cur):
+    depth = "" if cur == "ko" else "../"
+    return "".join(
+        f'<a href="{depth}{path or "./"}" hreflang="{code}" lang="{code}"{" class=\"on\" aria-current=\"true\"" if code == cur else ""}>{label}</a>'
+        for code, label, path in LANGS
+    ).replace('href=".././"', 'href="../"')
+
+
+HREFLANG = "\n".join(
+    [f'<link rel="alternate" hreflang="{c}" href="{SITE}{p}">' for c, _, p in LANGS]
+    + [f'<link rel="alternate" hreflang="x-default" href="{SITE}">']
+)
+
+
+def translate(html_text, tr):
+    out = html_text
+    for key in sorted(tr["strings"], key=len, reverse=True):
+        val = tr["strings"][key]
+        k = re.escape(key)
+        out = re.sub(r"(>\s*)" + k + r"(\s*<)", lambda m: m.group(1) + val + m.group(2), out)
+        out = out.replace(f'"{key}"', f'"{val}"')
+    for pat, rep in tr["patterns"]:
+        out = re.sub(pat, rep, out)
+    return out
+
+
+def render(code):
     src = (ROOT / "index.src.html").read_text(encoding="utf-8")
     out = re.sub(r"\{\{GEO_(\w+)\}\}", lambda m: table(GEO[m.group(1)]), src)
+    out = out.replace("{{LANG}}", lang_switch(code)).replace("{{HREFLANG}}", HREFLANG)
     assert "{{" not in out, "채워지지 않은 자리표시자가 있습니다"
+    if code == "ko":
+        return out
+    tr = json.loads((ROOT / f"i18n/{code}.json").read_text(encoding="utf-8"))
+    for ko, t in GEO_LABELS[code].items():
+        out = out.replace(f"<th>{ko}</th>", f"<th>{t}</th>")
+    out = translate(out, tr)
+    m = tr["meta"]
+    out = out.replace('<html lang="ko">', f'<html lang="{m["lang"]}">')
+    out = out.replace(f'<link rel="canonical" href="{SITE}">', f'<link rel="canonical" href="{SITE}{m["path"]}">')
+    out = out.replace(f'<meta property="og:url" content="{SITE}">', f'<meta property="og:url" content="{SITE}{m["path"]}">')
+    out = out.replace('content="ko_KR"', f'content="{m["locale"]}"')
+    out = out.replace('"inLanguage": "ko-KR"', f'"inLanguage": "{m["lang"]}"')
+    out = re.sub(r"family=Archivo[^\"]*display=swap", m["fonts"], out, count=1)
+    # 하위 폴더에서 이미지 경로
+    out = re.sub(r'((?:src|href)=")images/', r"\1../images/", out)
+    out = out.replace("url(images/", "url(../images/")
+    left = sorted(set(re.findall(r"[^<>\"]*[가-힣][^<>\"]*", out)))
+    left = [x.strip() for x in left if x.strip() and "/*" not in x]
+    if left:
+        print(f"[{code}] 번역되지 않은 한국어:", left[:20])
+    return out
 
-    if "--preview" in sys.argv:
-        # images/... → 매니페스트의 원본 주소
-        cdn = {}
-        for line in (ROOT / ".github/image-manifest.txt").read_text().splitlines():
-            if line.strip():
-                url, dest = line.split()
-                cdn[dest] = url
-        out = re.sub(r"images/[\w/.-]+\.(?:jpg|png)", lambda m: cdn.get(m.group(0), m.group(0)), out)
-        missing = sorted(set(re.findall(r'(?<![/\w])images/[\w/.-]+\.(?:jpg|png)', out)))
-        if missing:
-            print("매니페스트에 없는 이미지:", missing)
-        (ROOT / "preview.html").write_text(out, encoding="utf-8")
-        print("preview.html")
-    else:
-        # 페이지에서 쓰는 이미지가 모두 매니페스트에 있는지 확인
-        listed = {l.split()[1] for l in (ROOT / ".github/image-manifest.txt").read_text().splitlines() if l.strip()}
+
+def main():
+    manifest = (ROOT / ".github/image-manifest.txt").read_text().splitlines()
+    cdn = dict(reversed(l.split()) for l in manifest if l.strip())
+    for code, _, path in LANGS:
+        out = render(code)
         used = set(re.findall(r"images/[\w/.-]+\.(?:jpg|png)", out))
-        for u in sorted(used - listed):
+        for u in sorted(used - set(cdn)):
             print("매니페스트에 없는 이미지:", u)
-        (ROOT / "index.html").write_text(out, encoding="utf-8")
-        print("index.html")
+        if "--preview" in sys.argv:
+            out = re.sub(r"(?:\.\./)?images/[\w/.-]+\.(?:jpg|png)", lambda m: cdn.get(m.group(0).replace("../", ""), m.group(0)), out)
+            name = f"preview{'-' + code if code != 'ko' else ''}.html"
+            (ROOT / name).write_text(out, encoding="utf-8")
+            print(name)
+        else:
+            dest = ROOT / path / "index.html"
+            dest.parent.mkdir(exist_ok=True)
+            dest.write_text(out, encoding="utf-8")
+            print(dest.relative_to(ROOT))
 
 
 if __name__ == "__main__":

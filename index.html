@@ -8,6 +8,10 @@
 <meta name="keywords" content="크러스트,크러스트 바이크,Crust Bikes,이베이전,Evasion,봄보라,Bombora,셀로스 봄보라,Celos,스투피드 투어리스트,Stupid Tourist,크로몰리 프레임,투어링 자전거,바이크패킹,루비워크샵,루비서플라이">
 <meta name="theme-color" content="#f2ede3">
 <link rel="canonical" href="https://crustbikes.co.kr/">
+<link rel="alternate" hreflang="ko" href="https://crustbikes.co.kr/">
+<link rel="alternate" hreflang="en" href="https://crustbikes.co.kr/en/">
+<link rel="alternate" hreflang="ja" href="https://crustbikes.co.kr/ja/">
+<link rel="alternate" hreflang="x-default" href="https://crustbikes.co.kr/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crustbikes.co.kr/">
@@ -40,7 +44,7 @@
       "telephone": "+82-1551-5320",
       "address": { "@type": "PostalAddress", "streetAddress": "신반포로 320 루비빌딩", "addressLocality": "서초구", "addressRegion": "서울특별시", "addressCountry": "KR" },
       "parentOrganization": { "@type": "Organization", "name": "루비컴퍼니", "alternateName": "Rubi Company", "url": "https://rubi.kr/" },
-      "sameAs": ["https://instagram.com/rubi.workshop", "https://crustbikes.com/", "https://instagram.com/crustbikes"]
+      "sameAs": ["https://instagram.com/rubi.seoul", "https://crustbikes.com/", "https://instagram.com/crustbikes"]
     },
     { "@type": "WebSite", "@id": "https://crustbikes.co.kr/#website", "url": "https://crustbikes.co.kr/", "name": "크러스트 바이크 코리아", "inLanguage": "ko-KR", "publisher": { "@id": "https://crustbikes.co.kr/#organization" } },
     { "@type": "Product", "name": "크러스트 이베이전 (Crust Evasion)", "brand": { "@type": "Brand", "name": "Crust Bikes" }, "category": "크로몰리 투어링 프레임셋", "image": "https://crustbikes.co.kr/images/evasion/01.jpg", "description": "열처리 크로몰리 투어링·어드벤처 프레임. 26x3인치, 27.5x2.8인치 타이어 대응, 로커 드롭아웃으로 로놀프·싱글스피드 구성 가능." },
@@ -73,6 +77,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:var(--hd);-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font:400 15px/1.85 var(--ko);word-break:keep-all;overflow-x:hidden}
+html[lang=ja]{--ko:'Archivo','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic',sans-serif}
+html[lang=ja] body{word-break:normal;line-break:strict}
+html[lang=en] body{word-break:normal}
 img{display:block;width:100%;height:auto;background:var(--paper)}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--blue);color:#fff}
@@ -90,7 +97,12 @@ a{color:inherit;text-decoration:none}
 body.menu-open .burger span:nth-child(1){top:8px;transform:rotate(45deg)}
 body.menu-open .burger span:nth-child(2){opacity:0}
 body.menu-open .burger span:nth-child(3){top:8px;transform:rotate(-45deg)}
-.hd .cta-top{position:absolute;right:var(--gutter);top:50%;transform:translateY(-50%);font:700 12px var(--en);letter-spacing:2px;color:var(--strong);border-bottom:2px solid var(--blue);padding-bottom:1px}
+.hd-r{position:absolute;right:var(--gutter);top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:28px}
+.lang{display:flex;gap:12px;font:700 11px var(--en);letter-spacing:1.5px}
+.lang a{color:var(--muted);transition:color .2s}
+.lang a:hover{color:var(--blue)}
+.lang a.on{color:var(--strong)}
+.hd .cta-top{font:700 12px var(--en);letter-spacing:2px;color:var(--strong);border-bottom:2px solid var(--blue);padding-bottom:1px}
 
 /* ---------- Overlay menu ---------- */
 .menu{position:fixed;inset:var(--hd) 0 0;z-index:40;background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:0 var(--gutter);opacity:0;visibility:hidden;transition:.45s}
@@ -317,7 +329,7 @@ footer .copy{margin-top:28px;font-size:12px}
 <header class="hd" id="hd">
   <button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
   <a href="#top" class="logo" aria-label="CRUST 홈"><img src="images/logo.png" alt="Crust Bikes"></a>
-  <a href="https://rubiworkshop.com/consulting" class="cta-top" target="_blank" rel="noopener">CONSULTING</a>
+  <div class="hd-r"><nav class="lang" aria-label="Language"><a href="./" hreflang="ko" lang="ko" class="on" aria-current="true">KO</a><a href="en/" hreflang="en" lang="en">EN</a><a href="ja/" hreflang="ja" lang="ja">JA</a></nav><a href="https://rubiworkshop.com/consulting" class="cta-top" target="_blank" rel="noopener">CONSULTING</a></div>
 </header>
 
 <nav class="menu" id="menu" aria-label="섹션 메뉴">
@@ -429,7 +441,7 @@ footer .copy{margin-top:28px;font-size:12px}
 <section class="sec" id="evasion" data-sec>
   <div class="wrap">
     <div class="label reveal">02</div>
-    <h2 class="sec-title reveal">Evasion<span>이베이전 · TOURING &amp; ADVENTURE</span></h2>
+    <h2 class="sec-title reveal">Evasion<span>이베이전 · TOURING & ADVENTURE</span></h2>
     <div class="cols-2">
       <p class="lead reveal">어디로든,<br>무엇이든 싣고.<br>크러스트의 첫 번째 대답.</p>
       <div class="body reveal">
@@ -449,7 +461,7 @@ footer .copy{margin-top:28px;font-size:12px}
   </div>
 
   <div class="wrap gap-l">
-    <div class="rail-hint reveal"><div><span class="eyebrow">GALLERY</span><p class="sub-head">Evasion up close<span>오렌지 &amp; 그레이 스페클 블루러그 스페셜 에디션 · 갤럭시 블랙</span></p></div><span>DRAG →</span></div>
+    <div class="rail-hint reveal"><div><span class="eyebrow">GALLERY</span><p class="sub-head">Evasion up close<span>오렌지 & 그레이 스페클 블루러그 스페셜 에디션 · 갤럭시 블랙</span></p></div><span>DRAG →</span></div>
   </div>
   <div class="strip reveal" data-drag data-gallery="evasion">
     <figure><img src="images/evasion/05.jpg" alt="크러스트 이베이전 1" loading="lazy"><figcaption>01</figcaption></figure>
@@ -480,7 +492,7 @@ footer .copy{margin-top:28px;font-size:12px}
         <tr><th>시트포스트</th><td>27.2mm, 클램프 30.0mm</td></tr>
         <tr><th>무게 (L)</th><td>프레임 2.66kg / 포크 1.36kg (스티어러 미절단)</td></tr>
         <tr><th>사이즈</th><td>S 52 / M 54 / XM 56 / L 58 / XL 60</td></tr>
-        <tr><th>컬러</th><td>오렌지 &amp; 그레이 스페클 블루러그 스페셜 에디션 / 갤럭시 블랙</td></tr>
+        <tr><th>컬러</th><td>오렌지 & 그레이 스페클 블루러그 스페셜 에디션 / 갤럭시 블랙</td></tr>
       </table>
     </div>
     <div class="gap-l reveal">
@@ -806,7 +818,7 @@ footer .copy{margin-top:28px;font-size:12px}
       <b>이메일</b> <a href="mailto:help@rubi.kr">help@rubi.kr</a>
     </div>
     <div class="sns">
-      <a href="https://instagram.com/rubi.workshop" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="https://instagram.com/rubi.seoul" target="_blank" rel="noopener">INSTAGRAM</a>
       <a href="https://rubisupply.com/crust" target="_blank" rel="noopener">RUBI SUPPLY</a>
       <a href="https://crustbikes.com/" target="_blank" rel="noopener">CRUST GLOBAL</a>
     </div>
