@@ -271,6 +271,53 @@ table.geo tbody tr:hover td,table.geo tbody tr:hover th{color:var(--blue)}
 .sizes b{display:block;font:900 26px var(--en);font-stretch:62%;color:var(--strong)}
 .sizes span{font-size:13px;color:var(--muted)}
 
+/* ---------- Dealers ---------- */
+.dmap-wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);border:2px solid var(--strong);height:min(680px,80vh);background:var(--bg)}
+.dmap{position:relative;z-index:0;isolation:isolate;background:var(--paper);min-height:0}
+.dmap .leaflet-tile-pane{filter:sepia(.22) saturate(.85) contrast(.96)}
+.dmap .leaflet-container{background:var(--paper);font:400 13px var(--ko)}
+.dmap-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:var(--muted);font-size:13px}
+.dpanel{display:flex;flex-direction:column;border-left:2px solid var(--strong);min-height:0}
+.dtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:16px 18px;border-bottom:2px solid var(--strong)}
+.chip{font:700 11px var(--en);letter-spacing:1.5px;padding:7px 11px;border:1.5px solid var(--strong);background:none;color:var(--strong);cursor:pointer;line-height:1.2}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.on{background:var(--strong);border-color:var(--strong);color:var(--bg)}
+.near{flex-basis:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px;font-size:12px;color:var(--muted)}
+.near button{background:none;border:0;border-bottom:2px solid var(--blue);padding:0 0 1px;font:700 11px var(--en);letter-spacing:1.5px;color:var(--strong);cursor:pointer;white-space:nowrap}
+.near button[disabled]{opacity:.5;cursor:default}
+.dlist{list-style:none;overflow:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.dlist li{border-bottom:1px solid var(--line);transition:background .25s}
+.dlist li.on{background:var(--paper)}
+.ditem{display:block;width:100%;text-align:left;padding:18px 20px 10px;background:none;border:0;cursor:pointer;font:inherit;color:inherit}
+.ditem .tag{display:flex;gap:10px;font:700 10px var(--en);letter-spacing:2px;color:var(--blue);text-transform:uppercase}
+.ditem .tag i{font-style:normal;color:var(--muted)}
+.ditem .nm{display:block;font:900 26px/1.05 var(--ko);font-stretch:62%;text-transform:uppercase;color:var(--strong);margin:8px 0 8px}
+.dlist li.on .nm{color:var(--blue)}
+.ditem .ad{display:block;font-size:13px;line-height:1.65}
+.ditem .mt{display:block;font-size:12px;color:var(--muted);margin-top:6px}
+.ditem .md{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:10px;font:700 10px var(--en);letter-spacing:1.5px;text-transform:uppercase;color:var(--strong)}
+.dlinks{display:flex;flex-wrap:wrap;gap:6px 16px;padding:4px 20px 18px}
+.dlinks a{font:700 11px var(--en);letter-spacing:1px;color:var(--strong);border-bottom:1.5px solid var(--line);padding-bottom:1px}
+.dlinks a:hover{border-color:var(--blue);color:var(--blue)}
+.dempty{padding:28px 20px;font-size:13px;color:var(--muted)}
+.pin{display:block;width:18px;height:18px;border-radius:50%;background:var(--blue);border:3px solid var(--bg);box-shadow:0 0 0 1.5px var(--strong);transition:transform .2s}
+.pin.showroom{background:var(--strong);border-radius:3px}
+.pin.on{transform:scale(1.45)}
+.dmap .leaflet-popup-content-wrapper{border-radius:0;background:var(--bg);color:var(--text);border:2px solid var(--strong);box-shadow:none}
+.dmap .leaflet-popup-tip{background:var(--strong);box-shadow:none}
+.dmap .leaflet-popup-content{margin:12px 16px;font:400 12px/1.6 var(--ko)}
+.dmap .leaflet-popup-content b{display:block;font:900 18px/1.1 var(--ko);font-stretch:62%;text-transform:uppercase;color:var(--strong);margin-bottom:4px}
+.dmap .leaflet-bar a{border-radius:0!important;color:var(--strong)}
+.dmap .leaflet-control-attribution{background:rgba(242,237,227,.85);font-size:10px}
+.dfoot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;margin-top:18px;font-size:12px;color:var(--muted)}
+.dfoot a{font:700 12px var(--en);letter-spacing:1px;color:var(--strong);border-bottom:2px solid var(--blue)}
+@media (max-width:900px){
+  .dmap-wrap{grid-template-columns:1fr;height:auto}
+  .dmap{height:min(58vh,420px)}
+  .dpanel{border-left:0;border-top:2px solid var(--strong)}
+  .dlist{overflow:visible}
+}
+
 /* ---------- Showroom ---------- */
 .showinfo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px)}
 .showinfo h3{font:900 clamp(40px,5vw,72px)/.9 var(--en);font-stretch:62%;text-transform:uppercase;color:var(--strong);margin-bottom:20px}
@@ -353,7 +400,8 @@ footer .copy{margin-top:28px;font-size:12px}
   <a href="#bombora"><small>03</small>Bombora</a>
   <a href="#tourist"><small>04</small>Stupid Tourist</a>
   <a href="#parts"><small>05</small>Parts</a>
-  <a href="#showroom"><small>06</small>Showroom</a>
+  <a href="#dealers"><small>06</small>Dealers</a>
+  <a href="#showroom"><small>07</small>Showroom</a>
   <div class="menu-foot">CRUST BIKES KOREA · RUBI COMPANY</div>
 </nav>
 
@@ -364,6 +412,7 @@ footer .copy{margin-top:28px;font-size:12px}
   <a href="#bombora" data-label="BOMBORA"></a>
   <a href="#tourist" data-label="STUPID TOURIST"></a>
   <a href="#parts" data-label="PARTS"></a>
+  <a href="#dealers" data-label="DEALERS"></a>
   <a href="#showroom" data-label="SHOWROOM"></a>
 </nav>
 
@@ -788,10 +837,33 @@ footer .copy{margin-top:28px;font-size:12px}
   <div class="wrap"><p class="note">클리어 마감 스템은 시간이 지나며 도장 아래 거미줄 모양의 녹 패티나가 보일 수 있으며, 이는 외관상의 변화입니다.</p></div>
 </section>
 
-<!-- ===== 06 SHOWROOM ===== -->
-<section class="sec" id="showroom" data-sec>
+<!-- ===== 06 DEALERS ===== -->
+<section class="sec" id="dealers" data-sec>
   <div class="wrap">
     <div class="label reveal">06</div>
+    <h2 class="sec-title reveal">Dealers<span>크러스트를 만날 수 있는 곳</span></h2>
+    <div class="cols-2">
+      <p class="lead reveal">가까운 매장에서<br>크러스트를 만나보세요.</p>
+      <div class="body reveal"><p>루비워크샵 쇼룸과, 루비서플라이를 통해 크러스트를 취급하는 전국의 자전거 숍입니다. 매장마다 전시 모델과 재고가 다르니, 보고 싶은 모델이 있다면 방문 전에 연락해 주세요.</p></div>
+    </div>
+    <div class="dmap-wrap gap-m reveal">
+      <div class="dmap" id="dmap" role="region" aria-label="크러스트 딜러 지도"><div class="dmap-fallback" id="dmapFallback">지도를 불러오는 중입니다.</div></div>
+      <div class="dpanel">
+        <div class="dtools">
+          <div id="dregions" style="display:flex;flex-wrap:wrap;gap:8px" role="group" aria-label="지역"></div>
+          <div class="near"><span id="dcount" aria-live="polite"></span><button type="button" id="dnear">내 위치에서 가까운 순</button></div>
+        </div>
+        <ul class="dlist" id="dlist"></ul>
+      </div>
+    </div>
+    <div class="dfoot reveal"><span>딜러 정보는 루비서플라이 공식 거래처 기준입니다.</span><a href="#b2b">매장에서 크러스트를 취급하고 싶으신가요? →</a></div>
+  </div>
+</section>
+
+<!-- ===== 07 SHOWROOM ===== -->
+<section class="sec" id="showroom" data-sec>
+  <div class="wrap">
+    <div class="label reveal">07</div>
     <h2 class="sec-title reveal">Showroom<span>FIND YOUR CRUST</span></h2>
     <figure class="reveal zoom" data-gallery="showroom"><img src="images/celos/02.jpg" alt="크러스트 셀로스 봄보라" loading="lazy"></figure>
     <div class="showinfo gap-m">
@@ -809,7 +881,7 @@ footer .copy{margin-top:28px;font-size:12px}
         <a class="btn" href="https://rubiworkshop.com/models" target="_blank" rel="noopener">크러스트 상담 예약하기 →</a>
       </div>
     </div>
-    <div class="dealer gap-l reveal">
+    <div class="dealer gap-l reveal" id="b2b">
       <h3><small>FOR DEALERS</small>Crust in<br>your shop</h3>
       <div>
         <p>루비컴퍼니는 크러스트 바이크의 한국 공식 수입원입니다. 크러스트 프레임셋과 부품 입고를 원하는 자전거 숍은 루비서플라이로 문의해 주세요.</p>
@@ -958,6 +1030,125 @@ footer .copy{margin-top:28px;font-size:12px}
     var g = t.closest && t.closest('[data-gallery]');
     if (g && t.closest('figure, .ph')) track('image_view', { gallery: g.getAttribute('data-gallery') || g.id || 'gallery' });
   }, true);
+})();
+</script>
+<script>
+/* Dealer map. Data comes from dealers.json at build time. Leaflet loads only when the section is near the viewport. */
+(() => {
+  const DATA = {"regions":{"seoul":{"ko":"서울","en":"Seoul","ja":"ソウル"},"gyeonggi":{"ko":"경기·인천","en":"Gyeonggi·Incheon","ja":"京畿・仁川"},"gangwon":{"ko":"강원","en":"Gangwon","ja":"江原"},"chungcheong":{"ko":"충청·대전","en":"Chungcheong·Daejeon","ja":"忠清・大田"},"gyeongsang":{"ko":"경상·부산·대구","en":"Gyeongsang·Busan·Daegu","ja":"慶尚・釜山・大邱"},"jeolla":{"ko":"전라·광주","en":"Jeolla·Gwangju","ja":"全羅・光州"},"jeju":{"ko":"제주","en":"Jeju","ja":"済州"}},"dealers":[{"id":"rubi-workshop","type":"showroom","name":"루비워크샵","name_en":"Rubi Workshop","region":"seoul","address":"서울특별시 서초구 신반포로 320 루비빌딩","address_en":"Rubi Building, 320 Sinbanpo-ro, Seocho-gu, Seoul","hours":"월~금 12:00~18:00","hours_en":"Mon–Fri 12:00–18:00","hours_ja":"月〜金 12:00〜18:00","phone":"1551-5320","lat":37.5101253,"lng":127.018688,"models":["evasion","trail","bombora","celos","tourist","parts"],"instagram":"rubi.seoul","web":"https://rubiworkshop.com/models"}]};
+  const LANG = document.documentElement.lang || 'ko';
+  const DL = {"all":"전체","showroom":"공식 쇼룸","dealer":"딜러","count":"{n}곳","near":"내 위치에서 가까운 순","locating":"위치 확인 중","denied":"위치를 확인할 수 없어 기본 순서로 보여드립니다.","sorted":"가까운 순으로 정렬했습니다.","empty":"이 지역에는 아직 딜러가 없습니다. 루비워크샵으로 문의해 주세요.","naver":"네이버 지도","kakao":"카카오맵","google":"구글 지도","call":"전화","web":"웹사이트","maperr":"지도를 불러오지 못했습니다. 아래 목록의 지도 링크를 이용해 주세요."};
+  const MODELS = { evasion:'Evasion', trail:'Evasion Trail 140', bombora:'Bombora', celos:'Celos Bombora', tourist:'Stupid Tourist', parts:'Parts' };
+  const $ = id => document.getElementById(id);
+  const list = $('dlist'), regionsEl = $('dregions'), countEl = $('dcount'), nearBtn = $('dnear');
+  if (!list) return;
+  const pick = (d, k) => d[k + '_' + LANG] || (LANG !== 'ko' && d[k + '_en']) || d[k] || '';
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const track = (n, p) => { if (window.GA_ID && typeof gtag === 'function') gtag('event', n, p); };
+  const dealers = DATA.dealers.slice().sort((a, b) => (a.type === 'showroom' ? -1 : 0) - (b.type === 'showroom' ? -1 : 0));
+  let region = 'all', sel = null, origin = null, map = null, markers = {};
+
+  const links = d => {
+    const q = encodeURIComponent(d.name);
+    const naver = d.naver || `https://map.naver.com/p/search/${q}`;
+    const kakao = d.kakao || `https://map.kakao.com/link/map/${encodeURIComponent(d.name)},${d.lat},${d.lng}`;
+    const google = d.google || `https://www.google.com/maps/search/?api=1&query=${d.lat},${d.lng}`;
+    const maps = [['naver', naver], ['kakao', kakao], ['google', google]];
+    if (LANG !== 'ko') maps.unshift(maps.pop());
+    let h = maps.map(([k, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener" data-dir="${k}">${DL[k]}</a>`).join('');
+    if (d.phone) h += `<a href="tel:${esc(d.phone.replace(/[^0-9+]/g, ''))}" data-dir="call">${DL.call} ${esc(d.phone)}</a>`;
+    if (d.instagram) h += `<a href="https://instagram.com/${esc(d.instagram)}" target="_blank" rel="noopener">@${esc(d.instagram)}</a>`;
+    if (d.web) h += `<a href="${esc(d.web)}" target="_blank" rel="noopener">${DL.web}</a>`;
+    return h;
+  };
+  const km = (a, b) => { const R = 6371, r = x => x * Math.PI / 180, dLa = r(b.lat - a.lat), dLo = r(b.lng - a.lng);
+    const h = Math.sin(dLa / 2) ** 2 + Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
+
+  /* Region chips: only regions that have dealers */
+  const used = [...new Set(dealers.map(d => d.region))].filter(r => DATA.regions[r]);
+  const chip = (k, label) => `<button type="button" class="chip${k === region ? ' on' : ''}" data-r="${k}" aria-pressed="${k === region}">${esc(label)}</button>`;
+  const drawChips = () => { regionsEl.innerHTML = used.length > 1 ? chip('all', DL.all) + used.map(r => chip(r, DATA.regions[r][LANG] || DATA.regions[r].ko)).join('') : ''; };
+  regionsEl.addEventListener('click', e => { const b = e.target.closest('.chip'); if (!b) return; region = b.dataset.r; drawChips(); draw(); fit(); });
+
+  function visible() {
+    let v = dealers.filter(d => region === 'all' || d.region === region);
+    if (origin) v = v.map(d => Object.assign({ _km: km(origin, d) }, d)).sort((a, b) => a._km - b._km);
+    return v;
+  }
+  function draw() {
+    const v = visible();
+    countEl.textContent = DL.count.replace('{n}', v.length);
+    if (!v.length) { list.innerHTML = `<li class="dempty">${DL.empty}</li>`; return; }
+    list.innerHTML = v.map(d => `<li data-id="${esc(d.id)}"${d.id === sel ? ' class="on"' : ''}>
+      <button type="button" class="ditem" aria-pressed="${d.id === sel}">
+        <span class="tag">${d.type === 'showroom' ? DL.showroom : DL.dealer}<i>${esc((DATA.regions[d.region] || {})[LANG] || (DATA.regions[d.region] || {}).ko || '')}</i>${d._km != null ? `<i>${d._km < 10 ? d._km.toFixed(1) : Math.round(d._km)} km</i>` : ''}</span>
+        <span class="nm">${esc(pick(d, 'name'))}</span>
+        <span class="ad">${esc(pick(d, 'address'))}</span>
+        ${pick(d, 'hours') ? `<span class="mt">${esc(pick(d, 'hours'))}</span>` : ''}
+        ${(d.models || []).length ? `<span class="md">${d.models.map(m => esc(MODELS[m] || m)).join('<span aria-hidden="true">·</span>')}</span>` : ''}
+      </button>
+      <div class="dlinks">${links(d)}</div></li>`).join('');
+  }
+  list.addEventListener('click', e => {
+    const a = e.target.closest('a[data-dir]');
+    if (a) { track('dealer_directions', { provider: a.dataset.dir, dealer: a.closest('li').dataset.id }); return; }
+    const b = e.target.closest('.ditem'); if (!b) return;
+    select(b.closest('li').dataset.id, true);
+  });
+  function select(id, fromList) {
+    sel = id; draw();
+    Object.entries(markers).forEach(([k, m]) => m.getElement() && m.getElement().querySelector('.pin').classList.toggle('on', k === id));
+    const d = dealers.find(x => x.id === id);
+    if (map && d) { map.flyTo([d.lat, d.lng], Math.max(map.getZoom(), 14), { duration: .8 }); markers[id].openPopup(); }
+    if (!fromList) { const li = list.querySelector(`li[data-id="${CSS.escape(id)}"]`); if (li) li.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+    track('dealer_select', { dealer: id });
+  }
+  nearBtn.addEventListener('click', () => {
+    if (!navigator.geolocation) { countEl.textContent = DL.denied; return; }
+    nearBtn.disabled = true; nearBtn.textContent = DL.locating;
+    navigator.geolocation.getCurrentPosition(p => {
+      origin = { lat: p.coords.latitude, lng: p.coords.longitude }; nearBtn.disabled = false; nearBtn.textContent = DL.near;
+      draw(); countEl.textContent = DL.sorted; track('dealer_near', {});
+    }, () => { nearBtn.disabled = false; nearBtn.textContent = DL.near; countEl.textContent = DL.denied; }, { timeout: 8000, maximumAge: 600000 });
+  });
+
+  function fit() {
+    if (!map) return;
+    const v = visible(); if (!v.length) return;
+    if (v.length === 1) map.setView([v[0].lat, v[0].lng], 14);
+    else map.fitBounds(v.map(d => [d.lat, d.lng]), { padding: [48, 48], maxZoom: 13 });
+  }
+  function initMap() {
+    const L = window.L, el = $('dmap'), fb = $('dmapFallback');
+    const coarse = matchMedia('(pointer:coarse)').matches;
+    map = L.map(el, { scrollWheelZoom: false, dragging: !coarse, tap: false, attributionControl: true, zoomControl: true });
+    map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd', maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    }).addTo(map);
+    el.addEventListener('click', () => map.scrollWheelZoom.enable(), { once: true });
+    dealers.forEach(d => {
+      const icon = L.divIcon({ className: '', html: `<span class="pin${d.type === 'showroom' ? ' showroom' : ''}"></span>`, iconSize: [18, 18], iconAnchor: [9, 9], popupAnchor: [0, -10] });
+      markers[d.id] = L.marker([d.lat, d.lng], { icon, title: pick(d, 'name'), keyboard: true }).addTo(map)
+        .bindPopup(`<b>${esc(pick(d, 'name'))}</b>${esc(pick(d, 'address'))}`)
+        .on('click', () => select(d.id, false));
+    });
+    if (fb) fb.remove();
+    fit();
+  }
+  function loadLeaflet() {
+    if (window.L) return initMap();
+    const css = document.createElement('link'); css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+    const js = document.createElement('script'); js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    js.onload = initMap; js.onerror = () => { const fb = $('dmapFallback'); if (fb) fb.textContent = DL.maperr; };
+    document.head.appendChild(js);
+  }
+
+  drawChips(); draw();
+  if (dealers.length < 2) nearBtn.hidden = true;
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); loadLeaflet(); } }, { rootMargin: '800px 0px' });
+  io.observe($('dmap'));
 })();
 </script>
 </body>

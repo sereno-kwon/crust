@@ -141,13 +141,28 @@ def translate(html_text, tr):
     return out
 
 
+def dealers_json():
+    """dealers.json → 페이지에 넣을 JSON. 좌표·필수 항목을 확인합니다."""
+    data = json.loads((ROOT / "dealers.json").read_text(encoding="utf-8"))
+    for d in data["dealers"]:
+        for k in ("id", "type", "name", "region", "address", "lat", "lng"):
+            assert k in d, f"dealers.json: {d.get('id', d.get('name'))} 에 {k} 항목이 없습니다"
+        assert d["region"] in data["regions"], f"dealers.json: {d['id']} 의 region '{d['region']}' 이 regions에 없습니다"
+        assert 33 < d["lat"] < 39 and 124 < d["lng"] < 132, f"dealers.json: {d['id']} 좌표가 한국 밖입니다"
+    return json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+
+
+def finish(out):
+    return out.replace("{{DEALERS}}", dealers_json())
+
+
 def render(code):
     src = (ROOT / "index.src.html").read_text(encoding="utf-8")
     out = re.sub(r"\{\{GEO_(\w+)\}\}", lambda m: table(GEO[m.group(1)]), src)
     out = out.replace("{{LANG}}", lang_switch(code)).replace("{{HREFLANG}}", HREFLANG)
-    assert "{{" not in out, "채워지지 않은 자리표시자가 있습니다"
+    assert "{{" not in out.replace("{{DEALERS}}", ""), "채워지지 않은 자리표시자가 있습니다"
     if code == "ko":
-        return out
+        return finish(out)
     tr = json.loads((ROOT / f"i18n/{code}.json").read_text(encoding="utf-8"))
     for ko, t in GEO_LABELS[code].items():
         out = out.replace(f"<th>{ko}</th>", f"<th>{t}</th>")
@@ -166,7 +181,7 @@ def render(code):
     left = [x.strip() for x in left if x.strip() and "/*" not in x]
     if left:
         print(f"[{code}] 번역되지 않은 한국어:", left[:20])
-    return out
+    return finish(out)
 
 
 def main():

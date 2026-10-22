@@ -11,8 +11,8 @@
   var parts = location.pathname.slice(base.length).replace(/\/$/, '').toLowerCase().split('/');
   var lang = (parts[0] === 'en' || parts[0] === 'ja') ? parts.shift() + '/' : '';
   var key = parts.join('/');
-  var alias = { 'evasion-trail':'trail', 'evasion-trail-140':'trail', 'trail140':'trail', 'celos-bombora':'celos', 'stupid-tourist':'tourist', 'stupidtourist':'tourist', 'about':'brand', 'contact':'showroom', 'dealer':'showroom', 'clydesdale':'parts', 'stem':'parts' };
-  var map = { brand:1, evasion:1, trail:1, bombora:1, celos:1, tourist:1, parts:1, showroom:1 };
+  var alias = { 'evasion-trail':'trail', 'evasion-trail-140':'trail', 'trail140':'trail', 'celos-bombora':'celos', 'stupid-tourist':'tourist', 'stupidtourist':'tourist', 'about':'brand', 'contact':'showroom', 'dealer':'dealers', 'map':'dealers', 'stores':'dealers', 'store':'dealers', 'wholesale':'b2b', 'clydesdale':'parts', 'stem':'parts' };
+  var map = { brand:1, evasion:1, trail:1, bombora:1, celos:1, tourist:1, parts:1, dealers:1, showroom:1, b2b:1 };
   key = alias[key] || key;
   location.replace(base + lang + (map[key] ? '#' + key : ''));
 </script>

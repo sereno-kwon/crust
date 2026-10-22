@@ -3,11 +3,12 @@
 crustbikes.co.kr 원페이지 정적 사이트 (GitHub Pages). parleecycles.co.kr, bastioncycles.co.kr, tsubasabicycles.co.kr과 같은 구조입니다.
 
 - `index.html` 원페이지 본체 (한국어), `en/index.html` 영어, `ja/index.html` 일본어. 모두 빌드 결과물입니다.
-- 원페이지 구성 (CRUST · EVASION(+ TRAIL 140) · BOMBORA(+ CELOS) · STUPID TOURIST · PARTS · SHOWROOM)
+- 원페이지 구성 (CRUST · EVASION(+ TRAIL 140) · BOMBORA(+ CELOS) · STUPID TOURIST · PARTS · DEALERS · SHOWROOM)
 - `index.src.html` 편집용 원본. 지오메트리 표는 `{{GEO_*}}` 자리에 `build.py`가 채웁니다. 내용을 고칠 때는 `index.src.html`을 수정한 뒤 `python3 build.py`를 실행합니다. `index.html`을 직접 고치면 다음 빌드 때 덮어써집니다.
 - `build.py` 지오메트리 데이터와 빌드 스크립트. `python3 build.py`로 세 언어 페이지를 한 번에 생성
 - `i18n/en.json`, `i18n/ja.json` 번역. `strings`는 "한국어 원문": "번역" 쌍이라, 한국어 문장을 고치면 두 파일의 같은 키도 함께 고칩니다. 빠진 번역은 빌드 때 목록으로 출력됩니다.
-- `404.html` 하위 주소(/evasion, /en/bombora, /ja/stupid-tourist, /dealer 등)를 섹션으로 연결
+- `dealers.json` 딜러 지도 데이터. 빌드할 때 세 언어 페이지에 함께 들어갑니다. 아래 '딜러 지도' 참고
+- `404.html` 하위 주소(/evasion, /en/bombora, /ja/stupid-tourist, /dealers 등)를 섹션으로 연결
 - `images/` 섹션별 이미지 (`hero`, `evasion`, `trail`, `bombora`, `celos`, `tourist`, `parts`)
 - `.github/image-manifest.txt` + `fetch-images.yml` 크러스트 공식 사이트(crustbikes.com) CDN 이미지 이전용 워크플로
 
@@ -31,7 +32,37 @@ crustbikes.co.kr 원페이지 정적 사이트 (GitHub Pages). parleecycles.co.k
   - `language_switch` 언어 전환 (from, to)
   - `social_click` 인스타그램·카카오·유튜브 클릭 (network, link_location)
   - `image_view` 사진 확대 보기 (gallery)
+  - `dealer_select` 딜러 지도에서 매장 선택 (dealer)
+  - `dealer_directions` 딜러 지도 링크 클릭 (provider: naver, kakao, google, call / dealer)
+  - `dealer_near` 내 위치에서 가까운 순 정렬
 - GA 관리 > 이벤트에서 `consulting_click`을 주요 이벤트로 표시하면 상담 전환을 따로 볼 수 있습니다.
 
 ## 운영시간
 루비워크샵 쇼룸 운영시간은 모든 브랜드 사이트에서 월~금 12:00~18:00으로 통일합니다.
+
+## 딜러 지도
+`dealers.json`의 `dealers`에 매장을 한 줄씩 추가하고 `python3 build.py`를 실행합니다.
+
+```json
+{
+  "id": "shop-id",              // 영문 소문자, 하이픈. GA 이벤트 이름으로도 쓰입니다
+  "type": "dealer",             // dealer 또는 showroom
+  "name": "매장 이름",
+  "name_en": "Shop Name",       // 영어·일본어 페이지용 (없으면 name)
+  "region": "seoul",            // regions의 키: seoul, gyeonggi, gangwon, chungcheong, gyeongsang, jeolla, jeju
+  "address": "도로명 주소",
+  "address_en": "English address",
+  "hours": "영업시간",           // hours_en, hours_ja 선택
+  "phone": "02-000-0000",
+  "lat": 37.5, "lng": 127.0,    // 좌표 필수. 구글 지도에서 매장을 우클릭하면 나오는 숫자
+  "models": ["evasion", "trail", "bombora", "celos", "tourist", "parts"],
+  "instagram": "account",        // @ 없이
+  "web": "https://...",
+  "naver": "https://naver.me/...", // 선택. 네이버 지도 공유 링크가 있으면 검색 대신 그 링크로 연결
+  "kakao": "https://place.map.kakao.com/..." // 선택
+}
+```
+
+- 지역 칩은 매장이 있는 지역만 자동으로 나타납니다. 지역이 하나뿐이면 칩은 숨겨집니다.
+- 지도는 Leaflet(cdnjs) + CARTO 지도 타일을 쓰며 API 키가 필요 없습니다. 섹션에 가까워질 때 불러옵니다.
+- 좌표가 한국 범위를 벗어나거나 필수 항목이 빠지면 빌드가 멈추고 어느 매장인지 알려줍니다.

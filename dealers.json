@@ -1,0 +1,31 @@
+{
+  "regions": {
+    "seoul": { "ko": "서울", "en": "Seoul", "ja": "ソウル" },
+    "gyeonggi": { "ko": "경기·인천", "en": "Gyeonggi·Incheon", "ja": "京畿・仁川" },
+    "gangwon": { "ko": "강원", "en": "Gangwon", "ja": "江原" },
+    "chungcheong": { "ko": "충청·대전", "en": "Chungcheong·Daejeon", "ja": "忠清・大田" },
+    "gyeongsang": { "ko": "경상·부산·대구", "en": "Gyeongsang·Busan·Daegu", "ja": "慶尚・釜山・大邱" },
+    "jeolla": { "ko": "전라·광주", "en": "Jeolla·Gwangju", "ja": "全羅・光州" },
+    "jeju": { "ko": "제주", "en": "Jeju", "ja": "済州" }
+  },
+  "dealers": [
+    {
+      "id": "rubi-workshop",
+      "type": "showroom",
+      "name": "루비워크샵",
+      "name_en": "Rubi Workshop",
+      "region": "seoul",
+      "address": "서울특별시 서초구 신반포로 320 루비빌딩",
+      "address_en": "Rubi Building, 320 Sinbanpo-ro, Seocho-gu, Seoul",
+      "hours": "월~금 12:00~18:00",
+      "hours_en": "Mon–Fri 12:00–18:00",
+      "hours_ja": "月〜金 12:00〜18:00",
+      "phone": "1551-5320",
+      "lat": 37.5101253,
+      "lng": 127.018688,
+      "models": ["evasion", "trail", "bombora", "celos", "tourist", "parts"],
+      "instagram": "rubi.seoul",
+      "web": "https://rubiworkshop.com/models"
+    }
+  ]
+}
