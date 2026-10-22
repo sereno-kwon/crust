@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>CRUST BIKES KOREA</title>
+<meta name="robots" content="noindex">
+<script>
+  // 하위 주소(/evasion, /bombora ...)를 원페이지 섹션으로 연결
+  // github.io 미리보기(/crust/)와 자체 도메인(/) 모두 동작
+  var base = location.hostname.slice(-10) === 'github.io' ? '/crust/' : '/';
+  var key = location.pathname.slice(base.length).replace(/\/$/, '').toLowerCase();
+  var alias = { 'evasion-trail':'trail', 'evasion-trail-140':'trail', 'trail140':'trail', 'celos-bombora':'celos', 'stupid-tourist':'tourist', 'stupidtourist':'tourist', 'about':'brand', 'contact':'showroom', 'dealer':'showroom', 'clydesdale':'parts', 'stem':'parts' };
+  var map = { brand:1, evasion:1, trail:1, bombora:1, celos:1, tourist:1, parts:1, showroom:1 };
+  key = alias[key] || key;
+  location.replace(base + (map[key] ? '#' + key : ''));
+</script>
+<style>body{background:#f2ede3}</style>
+</head>
+<body></body>
+</html>
