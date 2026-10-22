@@ -108,17 +108,17 @@ body.menu-open .menu{opacity:1;visibility:visible}
 .dots a:hover::after,.dots a.on::after{opacity:.9}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;height:100vh;height:100svh;min-height:600px;padding-top:var(--hd);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.hero{position:relative;padding-top:var(--hd);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
 .hero-copy{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(24px,4vw,56px) 96px var(--gutter)}
 .cap{position:absolute;left:var(--gutter);right:clamp(24px,4vw,56px);bottom:96px;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s}
 .cap.on{opacity:1;visibility:visible}
 .cap small{display:block;font:700 12px var(--en);letter-spacing:4px;color:var(--blue);margin-bottom:10px}
-.cap h2{font:900 clamp(64px,10vw,168px)/.86 var(--en);font-stretch:62%;text-transform:uppercase;color:var(--strong);letter-spacing:-1px}
+.cap h2{font:900 clamp(52px,6.4vw,112px)/.86 var(--en);font-stretch:62%;text-transform:uppercase;color:var(--strong);letter-spacing:-1px}
 .cap p{margin-top:18px;font-size:16px;color:var(--text)}
 .cap .more{display:inline-block;margin-top:22px;font:700 13px var(--en);letter-spacing:1px;color:var(--strong);border-bottom:2px solid var(--blue)}
 .cap>*{transform:translateY(14px);transition:transform .9s .2s}
 .cap.on>*{transform:none}
-.hero-media{position:relative;overflow:hidden;background:var(--paper)}
+.hero-media{position:relative;overflow:hidden;background:var(--paper);aspect-ratio:3/2;max-height:calc(100svh - var(--hd))}
 .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity 1.2s ease,transform 7s ease}
 .slide.on{opacity:1;transform:scale(1)}
 .hero-idx{position:absolute;left:var(--gutter);bottom:40px;z-index:3;display:flex;gap:10px;align-items:center}
@@ -205,8 +205,8 @@ figure.zoom:hover img{transform:scale(1.03)}
 .rail-hint>span{font:700 11px var(--en);letter-spacing:2px;color:var(--muted);white-space:nowrap}
 .strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--gutter) 20px;cursor:grab;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .strip.drag{cursor:grabbing;scroll-snap-type:none}
-.strip figure{flex:0 0 clamp(260px,30vw,420px);scroll-snap-align:start;position:relative}
-.strip figure img{aspect-ratio:4/5;object-fit:cover;pointer-events:none}
+.strip figure{flex:0 0 clamp(280px,38vw,540px);scroll-snap-align:start;position:relative}
+.strip figure img{aspect-ratio:3/2;object-fit:cover;pointer-events:none}
 .strip figcaption{position:absolute;left:12px;top:10px;font:700 11px var(--en);letter-spacing:2px;color:#fff;mix-blend-mode:difference}
 .cards figure{background:var(--paper);display:flex;flex-direction:column}
 .cards figure img{aspect-ratio:4/3}
@@ -280,8 +280,8 @@ footer .copy{margin-top:28px;font-size:12px}
   .terrain,.story{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
-  .hero{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;height:auto;min-height:0}
-  .hero-media{aspect-ratio:4/3;order:-1}
+  .hero{grid-template-columns:1fr}
+  .hero-media{order:-1;max-height:none}
   .hero-copy{min-height:300px;padding-bottom:76px}
   .cap{bottom:76px}
   .hero-idx{bottom:30px}
@@ -452,8 +452,8 @@ footer .copy{margin-top:28px;font-size:12px}
     <div class="rail-hint reveal"><div><span class="eyebrow">GALLERY</span><p class="sub-head">Evasion up close<span>오렌지 &amp; 그레이 스페클 블루러그 스페셜 에디션 · 갤럭시 블랙</span></p></div><span>DRAG →</span></div>
   </div>
   <div class="strip reveal" data-drag data-gallery="evasion">
-    <figure><img src="images/evasion/03.jpg" alt="크러스트 이베이전 1" loading="lazy"><figcaption>01</figcaption></figure>
-    <figure><img src="images/evasion/05.jpg" alt="크러스트 이베이전 2" loading="lazy"><figcaption>02</figcaption></figure>
+    <figure><img src="images/evasion/05.jpg" alt="크러스트 이베이전 1" loading="lazy"><figcaption>01</figcaption></figure>
+    <figure><img src="images/evasion/03.jpg" alt="크러스트 이베이전 2" loading="lazy"><figcaption>02</figcaption></figure>
     <figure><img src="images/evasion/06.jpg" alt="크러스트 이베이전 3" loading="lazy"><figcaption>03</figcaption></figure>
     <figure><img src="images/evasion/07.jpg" alt="크러스트 이베이전 4" loading="lazy"><figcaption>04</figcaption></figure>
     <figure><img src="images/evasion/08.jpg" alt="크러스트 이베이전 5" loading="lazy"><figcaption>05</figcaption></figure>
@@ -554,7 +554,7 @@ footer .copy{margin-top:28px;font-size:12px}
       </div>
     </div>
   </div>
-  <figure class="full gap-l reveal zoom" data-gallery="bombora-wide"><img src="images/bombora/02.jpg" alt="크러스트 봄보라" loading="lazy"></figure>
+  <figure class="full gap-l reveal zoom" data-gallery="bombora-wide"><img src="images/bombora/07.jpg" alt="크러스트 봄보라" loading="lazy"></figure>
   <div class="wrap gap-l">
     <div class="feat4">
       <div class="reveal"><h4>플러스 타이어 그래블</h4><p>650B 2.3인치의 넉넉한 공기량으로 비포장 임도와 자갈길을 부드럽게 넘어갑니다.</p></div>
@@ -566,7 +566,7 @@ footer .copy{margin-top:28px;font-size:12px}
 
   <div class="wrap gap-l">
     <div class="row">
-      <figure class="reveal zoom" data-gallery="bombora-row"><img src="images/bombora/01.jpg" alt="크러스트 봄보라 터쿼이즈 마블 블루러그 스페셜 에디션" loading="lazy"></figure>
+      <figure class="reveal zoom" data-gallery="bombora-row"><img src="images/bombora/02.jpg" alt="크러스트 봄보라 블루러그 스페셜 에디션 박스" loading="lazy"></figure>
       <div class="reveal">
         <span class="eyebrow">SPECIAL EDITION</span>
         <h3>터쿼이즈 마블,<br>블루러그 스페셜 에디션</h3>
@@ -581,7 +581,7 @@ footer .copy{margin-top:28px;font-size:12px}
     <figure><img src="images/bombora/04.jpg" alt="크러스트 봄보라 2" loading="lazy"><figcaption>02</figcaption></figure>
     <figure><img src="images/bombora/05.jpg" alt="크러스트 봄보라 3" loading="lazy"><figcaption>03</figcaption></figure>
     <figure><img src="images/bombora/06.jpg" alt="크러스트 봄보라 4" loading="lazy"><figcaption>04</figcaption></figure>
-    <figure><img src="images/bombora/07.jpg" alt="크러스트 봄보라 5" loading="lazy"><figcaption>05</figcaption></figure>
+    <figure><img src="images/bombora/01.jpg" alt="크러스트 봄보라 5" loading="lazy"><figcaption>05</figcaption></figure>
     <figure><img src="images/bombora/08.jpg" alt="크러스트 봄보라 6" loading="lazy"><figcaption>06</figcaption></figure>
     <figure><img src="images/bombora/09.jpg" alt="크러스트 봄보라 7" loading="lazy"><figcaption>07</figcaption></figure>
     <figure><img src="images/bombora/10.jpg" alt="크러스트 봄보라 8" loading="lazy"><figcaption>08</figcaption></figure>
@@ -766,7 +766,7 @@ footer .copy{margin-top:28px;font-size:12px}
   <div class="wrap">
     <div class="label reveal">06</div>
     <h2 class="sec-title reveal">Showroom<span>FIND YOUR CRUST</span></h2>
-    <figure class="reveal zoom" data-gallery="showroom"><img src="images/bombora/03.jpg" alt="크러스트 봄보라" loading="lazy"></figure>
+    <figure class="reveal zoom" data-gallery="showroom"><img src="images/celos/02.jpg" alt="크러스트 셀로스 봄보라" loading="lazy"></figure>
     <div class="showinfo gap-m">
       <div class="reveal">
         <h3>Let's build<br>your Crust.</h3>
